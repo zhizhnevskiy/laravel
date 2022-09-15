@@ -16,3 +16,28 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::any('/contact', function () {
+    $date = date('d.m.Y');
+    if (!empty($_POST)) {
+        dump($_POST);
+    }
+    return view('contact', ['date' => $date]);
+})->name('contact');
+
+Route::redirect('/test', '/contact');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/post', function () {
+        return "Post";
+    })->name('post');
+
+    Route::get('/post/{id}/{slug?}', function ($id, $slug = null) {
+        return "Post id - $id, slug - $slug";
+    })->where(['id' => '[0-9]+', 'slug' => '[A-Za-z0-9-]+'])->name('post_id');
+});
+
+Route::fallback(function(){
+    $date = date('d.m.Y');
+    abort(404, "Page not found...$date",);
+});
