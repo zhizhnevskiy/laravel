@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::any('/contact', function () {
     $date = date('d.m.Y');
@@ -41,3 +43,9 @@ Route::fallback(function(){
     $date = date('d.m.Y');
     abort(404, "Page not found...$date",);
 });
+
+Route::get('/', [HomeController::class, 'index']);
+
+Route::resource('/posts', PostController::class, ['parameters'=>[
+    'posts' => 'id'
+]]);
