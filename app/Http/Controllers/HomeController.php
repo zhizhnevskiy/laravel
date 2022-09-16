@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use App\Models\Post;
+use App\Models\Rubric;
+use App\Models\Tag;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -13,6 +16,11 @@ class HomeController extends Controller
 //        dump($_ENV);
 //        dump(env('DB_DATABASE'));
 //        dump(config('app.timezone'));
+
+//        return view('home', [
+//            'count' => 24,
+//            'name' => 'Yura'
+//        ]);
 
         /**
          * Row SQL
@@ -157,9 +165,43 @@ class HomeController extends Controller
 
 //        Post::destroy(5,8);
 
-//        return view('home', [
-//            'count' => 24,
-//            'name' => 'Yura'
-//        ]);
+        /**
+         * Eloquent ORM with Relations
+         */
+
+//        $post = Post::query()->find(1);
+//        dump($post->rubric);
+
+//        $rubric = Rubric::query()->find(2);
+//        dump($rubric->post->title);
+
+//        $posts = Rubric::query()->find(2)->posts;
+//        dump($posts);
+
+//        $posts = Rubric::query()->find(2)->posts()
+//            ->select('title')
+//            ->get()
+//            ->toArray();
+//        dump($posts);
+
+//        $posts = Post::query()
+//            ->with('rubric')
+//            ->get()
+//            ->toArray();
+//        dump($posts);
+
+//        $posts = Post::query()
+//            ->with('tags')
+//            ->where('id', '=', 2)
+//            ->get()
+//            ->toArray();
+//        dump($posts);
+
+        $tags = Tag::query()
+            ->with('posts')
+            ->where('id', '=', 1)
+            ->get()
+            ->toArray();
+        dump($tags);
     }
 }

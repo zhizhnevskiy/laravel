@@ -55,4 +55,18 @@ class Post extends Model
      * @var array
      */
     protected $fillable = ['title','content'];
+
+    /**
+     * One to One OR One to Many
+     */
+    public function rubric(){
+        return $this->belongsTo(Rubric::class, 'rubric_id', 'id');
+    }
+
+    /**
+     * Many to Many
+     */
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 }
