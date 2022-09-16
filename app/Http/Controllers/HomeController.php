@@ -13,15 +13,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-//        dump($_ENV);
-//        dump(env('DB_DATABASE'));
-//        dump(config('app.timezone'));
-
-//        return view('home', [
-//            'count' => 24,
-//            'name' => 'Yura'
-//        ]);
-
         /**
          * Row SQL
          */
@@ -197,11 +188,24 @@ class HomeController extends Controller
 //            ->toArray();
 //        dump($posts);
 
-        $tags = Tag::query()
-            ->with('posts')
-            ->where('id', '=', 1)
-            ->get()
-            ->toArray();
-        dump($tags);
+//        $tags = Tag::query()
+//            ->with('posts')
+//            ->where('id', '=', 1)
+//            ->get()
+//            ->toArray();
+//        dump($tags);
+
+
+
+
+
+//        dump($_ENV);
+//        dump(env('DB_DATABASE'));
+//        dump(config('app.timezone'));
+
+        return view('home', [
+            'count' => 24,
+            'name' => 'Yura'
+        ]);
     }
 }

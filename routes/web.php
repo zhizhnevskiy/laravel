@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -44,8 +45,9 @@ Route::fallback(function(){
     abort(404, "Page not found...$date",);
 });
 
-Route::get('/', [HomeController::class, 'index']);
-
 Route::resource('/posts', PostController::class, ['parameters'=>[
     'posts' => 'id'
 ]]);
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/page/about', [PageController::class, 'show'])->name('page.about');
