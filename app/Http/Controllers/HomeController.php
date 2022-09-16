@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 
@@ -12,6 +13,10 @@ class HomeController extends Controller
 //        dump($_ENV);
 //        dump(env('DB_DATABASE'));
 //        dump(config('app.timezone'));
+
+        /**
+         * Row SQL
+         */
 
 //        $insert = DB::insert('
 //            INSERT
@@ -42,19 +47,19 @@ class HomeController extends Controller
 //        );
 //        var_dump($delete);
 
-        DB::beginTransaction();
-        try {
-            DB::update('
-        UPDATE posts SET created_at = :create WHERE created_at IS NULL
-        ', ['create' => NOW()]);
-            DB::update('
-        UPDATE posts SET updated_at = :update WHERE updated_at IS NULL
-        ', ['update' => NOW()]);
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            echo $e->getMessage();
-        }
+//        DB::beginTransaction();
+//        try {
+//            DB::update('
+//        UPDATE posts SET created_at = :create WHERE created_at IS NULL
+//        ', ['create' => NOW()]);
+//            DB::update('
+//        UPDATE posts SET updated_at = :update WHERE updated_at IS NULL
+//        ', ['update' => NOW()]);
+//            DB::commit();
+//        } catch (\Exception $e) {
+//            DB::rollBack();
+//            echo $e->getMessage();
+//        }
 
 //        $posts = DB::select('
 //            SELECT * FROM posts WHERE id > :id
@@ -63,10 +68,9 @@ class HomeController extends Controller
 //        );
 //        return $posts;
 
-//        return view('home', [
-//            'count' => 24,
-//            'name' => 'Yura'
-//        ]);
+        /**
+         * Query Builder
+         */
 
 //        $data =  DB::table('country')->get();
 //        $data =  DB::table('country')->limit(5)->get();
@@ -108,11 +112,9 @@ class HomeController extends Controller
 //        dd($data);
 //        return $data;
 
-//        $post = new Post();
-
-//        $post->title = 'Article №2';
-////        $post->content = 'Lorem ipsum №2';
-//        $post->save();
+        /**
+         * Eloquent ORM
+         */
 
 //        $data = Country::all();
 //        $data = Country::query()->limit(5)->get();
@@ -120,6 +122,7 @@ class HomeController extends Controller
 //            ->select('Code','Name')->offset(1)->limit(2)->get();
 //        $data = City::query()->find(5);
 //        $data = Country::query()->find('AGO');
+//        dd($data);
 
 //        $post = new Post();
 //        $post->title = ' Article №3';
@@ -153,9 +156,6 @@ class HomeController extends Controller
 //        }
 
 //        Post::destroy(5,8);
-
-        $posts = DB::select("SELECT * FROM posts");
-        dd($posts);
 
 //        return view('home', [
 //            'count' => 24,
