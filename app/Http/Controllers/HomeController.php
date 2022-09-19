@@ -203,9 +203,14 @@ class HomeController extends Controller
 //        dump(env('DB_DATABASE'));
 //        dump(config('app.timezone'));
 
-        return view('home', [
-            'count' => 24,
-            'name' => 'Yura'
-        ]);
+//        return view('home', [
+//            'count' => 24,
+//            'name' => 'Yura'
+//        ]);
+
+
+        $title = 'Home Page';
+        $h1 = '<h3>home page</h3>';
+        return view('home', compact('title', 'h1'));
     }
 }
