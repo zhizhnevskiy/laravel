@@ -211,6 +211,14 @@ class HomeController extends Controller
 
         $title = 'Home Page';
         $h1 = '<h3>home page</h3>';
-        return view('home', compact('title', 'h1'));
+        $data = [
+            'title' => 'Title from array',
+            'content' => 'Content from array',
+            'keys' => 'Keys from array'
+        ];
+
+        $posts = Post::query()->orderByDesc('created_at')->get();
+
+        return view('home', compact('title', 'h1', 'data', 'posts'));
     }
 }
