@@ -40,14 +40,19 @@ Route::prefix('admin')->group(function () {
     })->where(['id' => '[0-9]+', 'slug' => '[A-Za-z0-9-]+'])->name('post_id');
 });
 
-Route::fallback(function(){
+Route::fallback(function () {
     $date = date('d.m.Y');
     abort(404, "Page not found...$date",);
 });
 
-Route::resource('/posts', PostController::class, ['parameters'=>[
+Route::resource('/posts', PostController::class, ['parameters' => [
     'posts' => 'id'
 ]]);
 
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/create', [HomeController::class, 'create'])->name('posts.create');
+Route::post('/', [HomeController::class, 'store'])->name('posts.store');
+
+
 Route::get('/page/about', [PageController::class, 'show'])->name('page.about');

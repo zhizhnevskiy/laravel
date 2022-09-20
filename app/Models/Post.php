@@ -55,7 +55,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['title','content'];
+    protected $fillable = ['title','content','rubric_id'];
 
     /**
      * One to One OR One to Many

@@ -7,7 +7,9 @@ use App\Models\Post;
 use App\Models\Rubric;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -196,9 +198,6 @@ class HomeController extends Controller
 //        dump($tags);
 
 
-
-
-
 //        dump($_ENV);
 //        dump(env('DB_DATABASE'));
 //        dump(config('app.timezone'));
@@ -217,8 +216,44 @@ class HomeController extends Controller
             'keys' => 'Keys from array'
         ];
 
-        $posts = Post::query()->orderByDesc('created_at')->get();
+        $posts = Post::query()
+            ->with('tags')
+            ->orderByDesc('created_at')
+            ->get();
 
         return view('home', compact('title', 'h1', 'data', 'posts'));
+    }
+
+    public function create()
+    {
+        $title = 'Create Page';
+        $rubrics = Rubric::query()->pluck('title','id')->all();
+        return view('create', compact('title', 'rubrics'));
+    }
+
+    public function store(Request $request)
+    {
+//        $this->validate($request,[
+//            'title' => 'required|min:5|max:100',
+//            'content' => 'required',
+//            'rubric_id' => 'required|integer'
+//        ]);
+
+        $rules = [
+            'title' => 'required|min:5|max:100',
+            'content' => 'required',
+            'rubric_id' => 'required|integer'
+        ];
+
+        $messages = [
+            'title.required' => 'This is a required field',
+            'title.min' => 'Min value equal 5',
+            'title.max' => 'Max value equal 5'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();
+
+        Post::query()->create($request->all());
+        return redirect()->route('home');
     }
 }

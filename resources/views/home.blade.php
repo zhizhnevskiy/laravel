@@ -50,6 +50,9 @@
                             <div class="card-body">
                                 <p class="card-title">{{ $post->title }}</p>
                                 <p class="card-text">{{ $post->content }}</p>
+                                @foreach($post->tags as $tag)
+                                        #{{ $tag->title }},
+                                @endforeach
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
