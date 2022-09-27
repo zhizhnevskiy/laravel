@@ -8,6 +8,7 @@ use App\Models\Rubric;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -211,6 +212,7 @@ class HomeController extends Controller
         /**
          * Session
          */
+
         // set
         $request->session()->put('test', 'Test Value');
         session(['cart'=>[
@@ -232,6 +234,7 @@ class HomeController extends Controller
         /**
          * Cookies
          */
+
         // set
         Cookie::queue('test', 'Test Cookies', 5);
 
@@ -240,6 +243,21 @@ class HomeController extends Controller
 
         // delete
 //        Cookie::queue(Cookie::forget('test'));
+
+        /**
+         * Cache
+         */
+        // set
+//        Cache::put('key', 'Cache Value', 300);
+//        Cache::forever('key', 'Cache Value');
+
+        // get
+//        dump(Cache::get('key'));
+
+        // delete
+//        dump(Cache::pull('key'));
+//        Cache::forget('key');
+//        Cache::flush();
 
         /**
          * Return view
@@ -253,12 +271,18 @@ class HomeController extends Controller
             'keys' => 'Keys from array'
         ];
 
-        $posts = Post::query()
-            ->with('tags')
-            ->orderByDesc('created_at')
-            ->get();
-
-
+        /**
+         * Cache post
+         */
+        if(Cache::has('posts')){
+            $posts = Cache::get('posts');
+        } else {
+            $posts = Post::query()
+                ->with('tags')
+                ->orderByDesc('created_at')
+                ->get();
+            Cache::put('posts', $posts);
+        }
 
         return view('home', compact('title', 'h1', 'data', 'posts'));
     }

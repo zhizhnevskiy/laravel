@@ -11,7 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+// mix.js('resources/js/app.js', 'public/js')
+//     .postCss('resources/css/app.css', 'public/css', [
+//         //
+// ]);
+
+mix.styles([
+    'resources/bootstrap5/css/bootstrap.css',
+    'resources/css/app.css'
+], 'public/css/bootstrap.css');
+
+mix.scripts([
+    'resources/bootstrap5/js/bootstrap.js'
+], 'public/js/bootstrap.js');
+
+mix.copyDirectory('resources/bootstrap5/img', 'public/img');

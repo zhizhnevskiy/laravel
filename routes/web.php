@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SendController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +58,5 @@ Route::post('/', [HomeController::class, 'store'])->name('posts.store');
 
 
 Route::get('/page/about', [PageController::class, 'show'])->name('page.about');
+
+Route::get('/send', [SendController::class, 'send'])->name('send');
