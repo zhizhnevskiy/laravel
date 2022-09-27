@@ -8,6 +8,7 @@ use App\Models\Rubric;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -219,7 +220,7 @@ class HomeController extends Controller
         $request->session()->push('cart', ['id' => 3, 'product' => 'title 3']);
 
         // get
-        dump($request->session()->all());
+//        dump($request->session()->all());
 //        dump(session('cart')[0]['product']);
 //        dump($request->session()->get('cart')[1]['product']);
 
@@ -227,6 +228,18 @@ class HomeController extends Controller
 //        dump($request->session()->pull('test'));
 //        $request->session()->forget('test');
 //        $request->session()->flush();
+
+        /**
+         * Cookies
+         */
+        // set
+        Cookie::queue('test', 'Test Cookies', 5);
+
+        // get
+//        dump(Cookie::get('test'));
+
+        // delete
+//        Cookie::queue(Cookie::forget('test'));
 
         /**
          * Return view
