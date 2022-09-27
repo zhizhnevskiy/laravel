@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         /**
          * Row SQL
@@ -207,6 +207,30 @@ class HomeController extends Controller
 //            'name' => 'Yura'
 //        ]);
 
+        /**
+         * Session
+         */
+        // set
+        $request->session()->put('test', 'Test Value');
+        session(['cart'=>[
+            ['id' => 1, 'product' => 'title 1'],
+            ['id' => 2, 'product' => 'title 2'],
+        ]]);
+        $request->session()->push('cart', ['id' => 3, 'product' => 'title 3']);
+
+        // get
+        dump($request->session()->all());
+//        dump(session('cart')[0]['product']);
+//        dump($request->session()->get('cart')[1]['product']);
+
+        // delete
+//        dump($request->session()->pull('test'));
+//        $request->session()->forget('test');
+//        $request->session()->flush();
+
+        /**
+         * Return view
+         */
 
         $title = 'Home Page';
         $h1 = '<h3>home page</h3>';
@@ -220,6 +244,8 @@ class HomeController extends Controller
             ->with('tags')
             ->orderByDesc('created_at')
             ->get();
+
+
 
         return view('home', compact('title', 'h1', 'data', 'posts'));
     }
@@ -254,6 +280,9 @@ class HomeController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages)->validate();
 
         Post::query()->create($request->all());
+
+        $request->session()->flash('success', 'Данные сохранены!');
+
         return redirect()->route('home');
     }
 }
