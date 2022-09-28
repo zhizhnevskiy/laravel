@@ -51,12 +51,10 @@ Route::resource('/posts', PostController::class, ['parameters' => [
     'posts' => 'id'
 ]]);
 
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/create', [HomeController::class, 'create'])->name('posts.create');
 Route::post('/', [HomeController::class, 'store'])->name('posts.store');
 
-
 Route::get('/page/about', [PageController::class, 'show'])->name('page.about');
 
-Route::get('/send', [SendController::class, 'send'])->name('send');
+Route::match(['get','post'],'/send', [SendController::class, 'send'])->name('send');

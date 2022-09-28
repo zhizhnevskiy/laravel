@@ -11,14 +11,15 @@ class TestMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public string $body;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($body)
     {
-        //
+        $this->body = $body;
     }
 
     /**

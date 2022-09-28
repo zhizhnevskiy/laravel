@@ -16,6 +16,7 @@
                             <li><a href="{{ route('home') }}" class="text-white">Home</a></li>
                             <li><a href="{{ route('page.about') }}" class="text-white">About</a></li>
                             <li><a href="{{ route('posts.create') }}" class="text-white">Create Page</a></li>
+                            <li><a href="{{ route('send') }}" class="text-white">Send Email</a></li>
                         </ul>
                     </div>
                 </div>
@@ -37,6 +38,9 @@
                 </a>
                 <a href="{{ route('posts.create') }}" class="navbar-brand d-flex align-items-center">
                     <strong>Create Page</strong>
+                </a>
+                <a href="{{ route('send') }}" class="navbar-brand d-flex align-items-center">
+                    <strong>Send Email</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                         aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
