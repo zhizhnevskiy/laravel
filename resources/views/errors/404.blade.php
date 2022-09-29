@@ -9,6 +9,6 @@
 </head>
 <body>
     <h2>{{ $exception->getMessage() }}</h2>
-    <p>Zhizhnevskiy</p><br>
+    <p>404.blade</p><br>
 </body>
 </html>

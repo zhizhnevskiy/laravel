@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SendController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -29,9 +31,7 @@ Route::any('/contact', function () {
     }
     return view('contact', ['date' => $date]);
 })->name('contact');
-
 Route::redirect('/test', '/contact');
-
 Route::prefix('admin')->group(function () {
     Route::get('/post', function () {
         return "Post";
@@ -41,7 +41,6 @@ Route::prefix('admin')->group(function () {
         return "Post id - $id, slug - $slug";
     })->where(['id' => '[0-9]+', 'slug' => '[A-Za-z0-9-]+'])->name('post_id');
 });
-
 Route::fallback(function () {
     $date = date('d.m.Y');
     abort(404, "Page not found...$date",);
@@ -54,7 +53,19 @@ Route::resource('/posts', PostController::class, ['parameters' => [
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/create', [HomeController::class, 'create'])->name('posts.create');
 Route::post('/', [HomeController::class, 'store'])->name('posts.store');
-
 Route::get('/page/about', [PageController::class, 'show'])->name('page.about');
-
 Route::match(['get','post'],'/send', [SendController::class, 'send'])->name('send');
+
+Route::group(['middleware' => 'guest'], function(){
+    Route::get('/register', [UserController::class, 'create'])->name('register.create');
+    Route::post('/register', [UserController::class, 'store'])->name('register.store');
+    Route::get('/login', [UserController::class, 'loginForm'])->name('login.create');
+    Route::post('/login', [UserController::class, 'login'])->name('login');
+});
+Route::get('/logout', [UserController::class, 'logout'])->name('logout')->middleware('auth');
+Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
+    Route::get('/', [MainController::class, 'index'])->name('main');
+});
+
+
+

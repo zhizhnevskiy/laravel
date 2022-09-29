@@ -17,6 +17,9 @@
                             <li><a href="{{ route('page.about') }}" class="text-white">About</a></li>
                             <li><a href="{{ route('posts.create') }}" class="text-white">Create Page</a></li>
                             <li><a href="{{ route('send') }}" class="text-white">Send Email</a></li>
+                            <li><a href="{{ route('register.create') }}" class="text-white">Registration</a></li>
+                            <li><a href="{{ route('login.create') }}" class="text-white">Login</a></li>
+                            <li><a href="{{ route('logout') }}" class="text-white">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,19 +36,37 @@
                     </svg>
                     <strong>Home</strong>
                 </a>
-                <a href="{{ route('page.about') }}" class="navbar-brand d-flex align-items-center">
-                    <strong>About</strong>
-                </a>
-                <a href="{{ route('posts.create') }}" class="navbar-brand d-flex align-items-center">
-                    <strong>Create Page</strong>
-                </a>
-                <a href="{{ route('send') }}" class="navbar-brand d-flex align-items-center">
-                    <strong>Send Email</strong>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-                        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+
+                @auth
+                    <a href="{{ route('page.about') }}" class="navbar-brand d-flex align-items-center">
+                        <strong>About</strong>
+                    </a>
+                    <a href="{{ route('posts.create') }}" class="navbar-brand d-flex align-items-center">
+                        <strong>Create Page</strong>
+                    </a>
+                    <a href="{{ route('send') }}" class="navbar-brand d-flex align-items-center">
+                        <strong>Send Email</strong>
+                    </a>
+                    <a href="{{ route('logout') }}" class="navbar-brand d-flex align-items-center">
+                        <strong>Logout</strong>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+                            aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <h3 class="navbar-brand d-flex align-items-center">Welcome {{ auth()->user()->name }}</h3>
+                @endauth
+
+                @guest()
+                    <a href="{{ route('register.create') }}" class="navbar-brand d-flex align-items-center">
+                        <strong>Registration</strong>
+                    </a>
+                    <a href="{{ route('login.create') }}" class="navbar-brand d-flex align-items-center">
+                        <strong>Login</strong>
+                    </a>
+                @endguest
             </div>
         </div>
     @show

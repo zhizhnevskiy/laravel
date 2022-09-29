@@ -22,9 +22,17 @@
 
 <main>
     <div class="container">
+        @php
+            dump(\Illuminate\Support\Facades\Auth::check())
+        @endphp
+    </div>
+
+    <div class="container">
         @include('layouts.alerts')
     </div>
+
     @yield('content')
+
 </main>
 
 @include('layouts.footer')
