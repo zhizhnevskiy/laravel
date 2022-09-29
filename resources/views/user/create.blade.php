@@ -11,7 +11,7 @@
 @section('content')
 
     <div class="container">
-        <form method="post" action="{{ route('register.store') }}">
+        <form method="post" action="{{ route('register.store') }}" enctype="multipart/form-data">
 
             @csrf
 
@@ -61,6 +61,18 @@
                        name="password_confirmation"
                 >
                 @error('password_confirmation')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="avatar">Avatar</label>
+                <input type="file"
+                       class="form-control @error('avatar') is-invalid @enderror"
+                       id="avatar"
+                       name="avatar"
+                >
+                @error('avatar')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

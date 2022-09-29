@@ -56,7 +56,12 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <h3 class="navbar-brand d-flex align-items-center">Welcome {{ auth()->user()->name }}</h3>
+                    <a href="#" class="navbar-brand d-flex align-items-center">
+                        Welcome {{ auth()->user()->name }}
+                        @if(auth()->user()->avatar)
+                            <img src="{{asset('storage/' . auth()->user()->avatar)}}" alt="avatar" height="40px">
+                        @endif
+                    </a>
                 @endauth
 
                 @guest()
