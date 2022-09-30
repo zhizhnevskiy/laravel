@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * Class Post
@@ -73,5 +74,14 @@ class Post extends Model
 
     public function getPostDate(){
         return Carbon::parse($this->created_at)->diffForHumans();
+    }
+
+    // mutator
+    public function setTitleAttribute($value){
+        $this->attributes['title'] = Str::title($value);
+    }
+    // accessor
+    public function getTitleAttribute($value){
+        return Str::upper($value);
     }
 }
