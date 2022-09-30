@@ -274,15 +274,20 @@ class HomeController extends Controller
         /**
          * Cache post
          */
-        if(Cache::has('posts')){
-            $posts = Cache::get('posts');
-        } else {
-            $posts = Post::query()
-                ->with('tags')
-                ->orderByDesc('created_at')
-                ->get();
-            Cache::put('posts', $posts);
-        }
+//        if(Cache::has('posts')){
+//            $posts = Cache::get('posts');
+//        } else {
+//            $posts = Post::query()
+//                ->with('tags')
+//                ->orderByDesc('created_at')
+//                ->get();
+//            Cache::put('posts', $posts);
+//        }
+
+        $posts = Post::query()
+            ->with('tags')
+            ->orderByDesc('created_at')
+            ->paginate(3);
 
         return view('home', compact('title', 'h1', 'data', 'posts'));
     }

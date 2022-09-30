@@ -32,9 +32,7 @@
 
     <div class="album py-5 bg-light">
         <div class="container">
-
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
+            <div class="row">
                 @foreach($posts as $post)
 
                     <div class="col">
@@ -51,7 +49,7 @@
                                 <p class="card-title">{{ $post->title }}</p>
                                 <p class="card-text">{{ $post->content }}</p>
                                 @foreach($post->tags as $tag)
-                                        #{{ $tag->title }},
+                                    #{{ $tag->title }},
                                 @endforeach
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
@@ -60,7 +58,7 @@
                                     </div>
                                     <small class="text-muted">
                                         {{--                                        {{ $post->created_at }}--}}
-{{--                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->created_at)--}}
+                                        {{--                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->created_at)--}}
                                         {{--                                            ->format('d.m.Y (H:i)')}}--}}
                                         {{ $post->getPostDate() }}
                                     </small>
@@ -71,6 +69,9 @@
                     </div>
 
                 @endforeach
+                <div class="col-md-12 mt-4">
+                    {{ $posts->links('vendor.pagination.my-pagination') }}
+                </div>
             </div>
         </div>
     </div>
