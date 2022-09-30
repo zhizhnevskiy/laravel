@@ -6,5 +6,12 @@
         <p class="mb-1">Laravel example is &copy; {{ date('Y') }}</p>
         <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
                 href="/docs/5.2/getting-started/introduction/">getting started guide</a>.</p>
+        <ul>
+            @foreach($rubrics as $rubric)
+                <li>
+                    <a href="#">{{ $rubric->title }}</a>
+                </li>
+            @endforeach
+        </ul>
     </div>
 </footer>
